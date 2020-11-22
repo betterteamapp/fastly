@@ -584,7 +584,7 @@ createDomain c (ServiceId s) (ServiceVersionNumber v) n = post c $ \r -> urlEnco
 toJsonSpaceList :: [Text] -> Value
 toJsonSpaceList = String . T.intercalate " "
 
-fromJsonSpaceList :: Monad m => Value -> m [Text]
+fromJsonSpaceList :: (Monad m, MonadFail m) => Value -> m [Text]
 fromJsonSpaceList (String ts) = return $ T.splitOn " " ts
 fromJsonSpaceList wat = fail "Expected a String, got something else for JSON space-delimited list"
 
